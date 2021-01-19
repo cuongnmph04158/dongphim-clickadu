@@ -1,234 +1,35 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-        <meta name="referrer" content="unsafe-url">
-        <link rel="icon" type="image/png" href="favicon.png">
-        <style rel="stylesheet">
-            body {
-                margin: 0;
-                padding: 0;
-                background-color: #000;
-                overflow: hidden;
-            }
+<html lang="en">
+<head>
+    <title>Stream Player DongPhimz.Co</title>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="assets/js/jwplayer_8_16.js"></script>
+    <script src="assets/js/p2p-media-loader-core.min.js"></script>
+    <script src="assets/js/p2p-media-loader-hlsjs.min.js"></script>
+    <script src="assets/js/hls.min.js"></script>
+    <script src="assets/js/jwplayer.hlsjs.min.js"></script>
 
-            #player {
-                width: 100%;
-                height: 100%;
-                margin-left: 0;
-                margin-right: 0;
-                margin-top: auto;
-                margin-bottom: auto;
-            }
 
-            .jwplayer {
-                position: static !important;
-            }
+</head>
+<body>
+<div id="mediaplayer"></div>
+<script type="text/javascript" src="assets/js/main.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-117662356-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-            .jwplayer .jw-preview {
-                background-size: cover !important;
-            }
+  gtag('config', 'UA-117662356-2');
+</script>
 
-            .video-js, #player-content {
-                width: 100% !important;
-                height: 100% !important;
-            }
-
-            .jw-rightclick.jw-reset.jw-open {
-                display: none;
-            }
-
-            .jwplayer.jw-state-buffering .jw-display-icon-display .jw-icon {
-                -webkit-animation: spin 0.6s linear infinite !important;
-                animation: spin 0.6s linear infinite !important;
-            }
-
-            .jwplayer.jw-state-buffering .jw-display-icon-display .jw-icon {
-                -webkit-animation: spin 0.6s linear infinite !important;
-                animation: spin 0.6s linear infinite !important;
-            }
-
-            .jw-progress {
-                background-color: #58b95b !important;
-            }
-
-            .jw-state-idle .jw-controlbar {
-                display: table !important;
-            }
-
-            .jw-controlbar {
-                background: transparent !important;
-            }
-
-            .jw-slider-time .jw-cue {
-                background-color: #F7F056 !important;
-            }
-
-            .jw-text-track-cue {
-                line-height: 140% !important;
-            }
-        </style>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript">
-            
-			var adsArray = [ '/ads/vast.xml?v1.2', '/ads/vast_2.xml?v1.121','/ads/middle.xml?v1.0',/*'/ads/middle_2.xml',*/'/ads/middle_3.xml?v1.16'];
-			
-			var getParam=function(param){
-				var pReg=new RegExp(param+"\\=([^\\?&]+)","i");
-				if(!pReg.test(window.location.href)){
-					return '';
-				}
-				var pRes=pReg.exec(window.location.href);
-				return decodeURIComponent(pRes[1]);
-			}
-			jQuery(window).on('message',function(e){
-				var msg = e.originalEvent.data;
-				var msgReg=/^(playVideo|pauseVideo|unmuteVideo)$/i;
-				if(typeof msg=="string" && msgReg.test(msg))
-				{
-					switch(msg){
-						case 'playVideo':
-							try{
-								jwplayer().play();
-							}catch(err){}
-							break;
-						case 'pauseVideo':
-							try{
-								jwplayer().pause();
-							}catch(err){}
-							break;
-						case 'unmuteVideo':
-							try{
-								jwplayer().setVolume(100);
-							}catch(err){}
-							break;
-						case 'muteVideo':
-							try{
-								jwplayer().setVolume(0);
-							}catch(err){}
-							break;
-					}
-				}
-			});
-			var HYDRAX_SLUG=getParam("slug");
-			try{
-				XMLHttpRequest = class extends XMLHttpRequest {
-				  send() {
-						this._onreadystatechange = this.onreadystatechange;
-						this.onreadystatechange = (t) => {
-							if(this.readyState==4 && this.responseType=="arraybuffer" && (this.status>=400)){
-								window.top.postMessage("embedPlayerError:"+JSON.stringify({'source':'hydrax','id':HYDRAX_SLUG,'reason':'http_'+this.status,'slug':HYDRAX_SLUG}));
-							}
-							if (typeof this._onreadystatechange === 'function') {
-								this._onreadystatechange(t);
-							}
-						};
-						super.send();
-					};
-				};
-			}catch(err){}
-			
-			window.timmerForTimeout=null;
-			window.timmerHandle=function(){
-				if(window.timmerForTimeout){
-					clearTimeout(window.timmerForTimeout);
-					window.timmerForTimeout=null;
-					console.log("Timeout timmer cleard.");
-				}
-				window.timmerForTimeout=setTimeout(function(){
-					if(jwplayer().getState()=="buffering"){
-						window.top.postMessage("embedPlayerError:"+JSON.stringify({'source':'hydrax','id':HYDRAX_SLUG,'reason':'timeout','slug':HYDRAX_SLUG}));
-						console.error("Loading timed out.");
-					}
-				},30000);
-				console.log("Timeout timmer started.");
-			}
-			window.setPlayerTimeout=function(){
-				if(typeof window.setPlayerTimeoutOK!="undefined" && window.setPlayerTimeoutOK){
-					return true;
-				}
-				if(typeof jwplayer=="function" && typeof jwplayer()=="object" && typeof jwplayer().getState=="function" && typeof jwplayer().getState()=="string" && jwplayer().getState()!=""){
-					jwplayer().on("play",function(){
-						window.timmerHandle();
-					});
-					jwplayer().on("seek",function(){
-						window.timmerHandle();
-					});
-					window.setPlayerTimeoutOK=1;
-				}else{
-					setTimeout(function(){
-						window.setPlayerTimeout();
-					},500);
-				}
-			};
-			jQuery(window).on('load',function(){
-				window.setPlayerTimeout();
-			});
-		
-        </script>
-    </head>
-    <body>
-        <script src="//hydrax.net/players/player.min.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="//hydrax.net/players/player.min.css">
-        <div id="player">
-            <div id="loader"></div>
-        </div>
-        <script type="496fa4d13a71335cc5c06d1e-text/javascript">
-            
-	new Player({
-		"key":"bf8855aa2c1be293b611552629497bec",
-		"type":"slug",
-		"value":HYDRAX_SLUG,
-		"tracks":[{
-			"file":"/data/sub/default.vtt",
-			"label":"Default",
-			"default":true
-		}],
-		"logo":{
-			"file":"/statics/default/img/logo_classic.png",
-			"link":"#",
-			"hide":false,
-			"margin":"15px",
-			"position":"top-left"
-		},
-		"aspectratio":"16:9",
-		"captions": {
-            "color": "#ffffff",
-            "fontSize": 18,
-            "backgroundOpacity": 50,
-            "fontfamily": "Arial",
-            "edgeStyle": "raised"
-        },
-		"width":"100%",
-		"height":"100%",
-		"autostart":true,
-		"playbackRateControls": true,
-		"playbackRates": [0.25, 0.5, 1, 1.5, 2],
-		"advertising":{
-			"client":"vast",
-			"admessage":"Quảng cáo còn XX giây.",
-			"skiptext":"Bỏ qua quảng cáo",
-			"skipmessage":"Bỏ qua sau xxs",
-			"skipoffset":5,
-			"schedule":{
-				'myAds': {
-                    offset: '30%',
-                    tag: adsArray[2],
-                },
-                'myAds2': {
-                    offset: '20%',
-                    tag: adsArray[3],
-                },
-                'myAds3': {
-                    offset: '45%',
-                    tag: adsArray[4],
-                }
-			}
-		}});
-	
-        </script>
-	<script data-cfasync="false" type="text/javascript" src="//livezombymil.com/aas/r45d/vki/1807947/tghr.js"></script>    
-    </body>
+<!-- <script data-cfasync="false" type="text/javascript" src="//trtjigpsscmv9epe10.com/i/npage/1806845/code.js" async></script> -->
+</body>
 </html>
