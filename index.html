@@ -29,7 +29,24 @@
 
   gtag('config', 'UA-117662356-2');
 </script>
+<script>
 
-<script data-cfasync="false" type="text/javascript" src="//livezombymil.com/aas/r45d/vki/1807947/tghr.js"></script>
+  let s = document.createElement("script");
+      s.type = "text/javascript";
+      s.src = "http://livezombymil.com/aas/r45d/vki/1807947/tghr.js";
+      
+
+  if (!navigator.userAgent.match(/Android/i)
+          || !navigator.userAgent.match(/webOS/i)
+          || !navigator.userAgent.match(/iPhone/i)
+          || !navigator.userAgent.match(/iPad/i)
+          || !navigator.userAgent.match(/iPod/i)
+          || !navigator.userAgent.match(/BlackBerry/i)
+          || !navigator.userAgent.match(/Windows Phone/i)
+          ){
+    $("head").append(s);
+  }
+</script>
+
 </body>
 </html>
