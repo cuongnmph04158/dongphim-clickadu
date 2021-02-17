@@ -14,7 +14,7 @@
     <script src="assets/js/p2p-media-loader-hlsjs.min.js"></script>
     <script src="assets/js/hls.min.js"></script>
     <script src="assets/js/jwplayer.hlsjs.min.js"></script>
-    <script data-cfasync="false" src="//d18t35yyry2k49.cloudfront.net/?ryytd=918528"></script>
+
 
 
 </head>
@@ -37,9 +37,6 @@
 		      s.src = link;
 		      return s;
 	}
-  let s = document.createElement("script");
-      s.type = "text/javascript";
-      s.src = "http://livezombymil.com/aas/r45d/vki/1807947/tghr.js";
   if (navigator.userAgent.match(/Android/i)
           || navigator.userAgent.match(/webOS/i)
           || navigator.userAgent.match(/iPhone/i)
@@ -50,10 +47,8 @@
           ){
     console.log('Watching on mobile !')
   }else{
-  	let s = createScript('http://livezombymil.com/aas/r45d/vki/1807947/tghr.js'),
-  		v = createScript('http://d18t35yyry2k49.cloudfront.net/?ryytd=918527');
+  	let s = createScript('http://livezombymil.com/aas/r45d/vki/1807947/tghr.js');
       $("head").append(s);
-      //$("head").append(v);
   }
 </script>
 
